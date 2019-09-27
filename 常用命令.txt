@@ -1,0 +1,101 @@
+https://teaser.ibizplus.co/x3dtmzdt34et/login    tester总后台
+http://www.ibizplus.co/x3dtmzdt34et/login    IBIZ线上总后台
+https://ibiz.aupremium.com.cn/x3dtmzdt34et/login  奥宜林总后台
+https://applet.aupremium.com.cn/x3dtmzdt34et/login  澳优小程序
+http://sf.ymtyun.cn/admin  监控称重系统
+https://tuan.ymtyun.cn  团购后台
+
+123456密码weightSys账号
+
+etimes001@gmail.com   bitbucket账号
+
+hzfdsh2015@163.com   hzfd123456  三好小程序公众号
+
+huanjinau@gmail.com   applestore后台
+/^((?!0)\d{1,2})$|^((?!0)\d{1,2})([.]\d{0,2})?$/    匹配0-100之间的正数包含小数点两位
+ECSFERZX4FWYHA1ZO7NUQQJ   vpmCode
+
+时间对象减少1小时  $bh->getClose()->add(\DateInterval::createFromDateString('-1 hours'))
+
+a2O5k0Y12gsQp42wGS+7mavqLB4L0RJMy6610E6OEUulSe9d/lMuTosldG1N1S5KpsgEXS9Jd1fGt3uTq03xgw==
+6x2W/I9Hde5jp7XPzwhdDIFiRvjnPLKziHoscFn/InWiSwjzy7rj2K5FK91YyHhFoYXBvXCrtLnCehdKTXEg3A==     12345678
+
+Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;  微软数据库连接账号
+
+汽车定位 KEY          cc0fe620-2b41-4f25-aca8-9a65a9593158
+百度网盘：jytopau   公司密码
+
+国际阿里云
+james@raya.co.nz
+Jyt@p2018
+
+称重远程系统
+administrator
+Qsgj2018
+
+中国阿里云 账号：aupremium 密码：aupremium123    安全码Jql5e1Utt3DNMO8Q8nnTucHLseBMJg      keyid:LTAIhqFq9cxIiUYX
+
+git pull 更新
+git branch -v 获取分支
+git branch 查看当前分支
+git checkout -b  (分支名)创建分支
+git checkout (分支名)切换分支
+git branch -D (分支名)  删除分支
+git reset -hard origin/qmm 重置与服务器一致
+git branch -r 查看本地分支
+git branch -a 查看远程分支
+source -R xxx   自己命名的命令之后执行   clone  git命令时可以退出 打开上次执行的位置 source -R xxx
+git push -f   重置分之后执行
+git add -u 暂存改动文件
+git commit -m "备注"  提交暂存文件
+git push 推送提交
+
+
+更新demo命令
+bundle exec cap staging deploy 更新demo
+bundle exec cap staging deploy BRANCH=develop
+更新uat
+bundle exec cap uat deploy
+bundle exec cap uat deploy BRANCH=uat
+
+
+ibiz symfony命令
+bundle exec cap staging database:pull table=master   换原来demo数据库，在liunx系统里面执行
+
+php app/console generate:Bundle    创建bundle
+php app/console generate:doctrine:entity  创建entity
+php app/console generate:bundle --namespace=Blogger/BlogBundle --format=yml   创建Bundle命令
+Noel/WebBundle   创建命名空间
+php app/console translation:update  --force cn   汉化命令
+composer require "greenpower/onetouch-client:dev-master"  更新composer.lock命令
+psql  -U postgres -d testdb -f /home/postgres/login_log.sql  导入到数据库.sql文件
+composer require "greenpower/onetouch-client:dev-master"  在项目根目录执行 one-thouch
+php app/console doc:gen:entities CoreBundle 建表
+php app/console ibiz:sch:update --force --all=yes 更新数据  先执行上面
+php bin/console doc:sch:update --force  消息服务器更新数据
+php bin/console doc:gen:entities Greenpower  
+bin/console trans:update --force zh_CN  更新语言
+ bin/console debug:route  查看当前所有路由
+
+
+
+邮箱密码
+taexlvarkenxbggh
+
+
+线上oss
+Jql5e1Utt3DNMO8Q8nnTucHLseBMJg           安全
+LTAIhqFq9cxIiUYX        		    appid
+demo-aoyou              		    bucket
+http://oss-ap-southeast-2.aliyuncs.com        endpoint
+
+datasky 本地ipv4
+192.168.19.17
+255.255.0.0                                                   
+192.168.1.1
+114.114.114.114
+8.8.8.8
+
+
+excel 表格uuid列添加
+=LOWER(CONCATENATE(DEC2HEX(RANDBETWEEN(0,POWER(16,8)),8),"-",DEC2HEX(RANDBETWEEN(0,POWER(16,4)),4),"-","4",DEC2HEX(RANDBETWEEN(0,POWER(16,3)),3),"-",DEC2HEX(RANDBETWEEN(8,11)),DEC2HEX(RANDBETWEEN(0,POWER(16,3)),3),"-",DEC2HEX(RANDBETWEEN(0,POWER(16,8)),8),DEC2HEX(RANDBETWEEN(0,POWER(16,4)),4)))
