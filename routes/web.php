@@ -13,12 +13,9 @@
 
 Route::prefix('back')->group(function(){
     Auth::routes();
-
     Route::get('/', 'HomeController@index')->name('home');
-//    Route::get('/welcome',function(){
-//        return view('admin.index.index');
-//    });
-   Route::resource('/index','Admin\IndexController');
+    Route::resource('/index','Admin\IndexController');
+    Route::resource('/user','Admin\UserController');
 });
 
 
