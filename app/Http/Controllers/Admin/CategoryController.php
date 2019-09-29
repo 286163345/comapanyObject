@@ -10,9 +10,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\User;
+use App\Model\Admin\Category;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     protected $limit = 15;
     /**
@@ -20,12 +20,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::paginate($this->limit);
+        $user = Category::paginate($this->limit);
         $params = array(
-            'user' => $user,
+            'category' => $user,
             'message' => session('message')?session('message'):''
         );
-        return view('admin.user.list',$params);
+        return view('admin.category.list',$params);
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends Controller
         $params = array(
             'message' => session('message')?session('message'):''
         );
-        return view('admin.user.add',$params);
+        return view('admin.category.add',$params);
     }
 
     /**
@@ -46,9 +46,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $this->deleteEmptyField($request->all());
-        $user = User::create($data);
+        $data['status'] = 1;
+        $user = Category::create($data);
         if($user->id){
-            return redirect('back/user/create')->with('message', '保存成功!');
+            return redirect('back/category')->with('message', '保存成功!');
         }
     }
 
@@ -58,12 +59,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = Category::find($id);
         $params = array(
-            'user' => $user,
+            'category' => $user,
             'message' => session('message')?session('message'):''
         );
-        return view('admin.user.edit',$params);
+        return view('admin.category.edit',$params);
     }
 
     /**
@@ -74,11 +75,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->deleteEmptyField($request->all());
-        $user = User::where(['id'=>$id])->update($data);
+        $user = Category::where(['id'=>$id])->update($data);
         if(!empty($user)){
-            return redirect('back/user/'.$id.'/edit')->with('message', '修改成功!');
+            return redirect('back/category/'.$id.'/edit')->with('message', '修改成功!');
         }else{
-            return redirect('back/user/'.$id.'/edit')->with('message', '修改失败!');
+            return redirect('back/category/'.$id.'/edit')->with('message', '修改失败!');
         }
     }
 
@@ -88,7 +89,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::destroy($id);
+        $user = Category::destroy($id);
         if(!empty($user)){
             return response()->json(['message'=>'删除成功!']);
         }else{

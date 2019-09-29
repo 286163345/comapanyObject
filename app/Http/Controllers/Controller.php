@@ -34,7 +34,7 @@ class Controller extends BaseController
         $arr = [];
         foreach($item as $k => $v){
             if($k != '_token' && $k != '_method' && $k != 'repass'){
-                if(!empty($v)){
+                if(!empty($v) || $v == 0){
                     $arr[$k] = $v;
                 }
             }

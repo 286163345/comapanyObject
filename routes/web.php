@@ -16,6 +16,7 @@ Route::prefix('back')->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('/index','Admin\IndexController');
     Route::resource('/user','Admin\UserController');
+    Route::resource('/category','Admin\CategoryController');
 });
 
 

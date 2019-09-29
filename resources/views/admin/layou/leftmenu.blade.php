@@ -8,9 +8,9 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('会员列表(静态表格)','{{url('back/user')}}')">
+                        <a onclick="xadmin.add_tab('用户列表','{{url('back/user')}}')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>用户列表(静态表格)</cite></a>
+                            <cite>用户列表</cite></a>
                     </li>
                 </ul>
             </li>
@@ -21,9 +21,9 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('多级分类','{{url('back/category')}}')">
+                        <a onclick="xadmin.add_tab('分类列表','{{url('back/category')}}')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>多级分类</cite></a>
+                            <cite>分类列表</cite></a>
                     </li>
                 </ul>
             </li>

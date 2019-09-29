@@ -24,7 +24,7 @@
         <button class="layui-btn" onclick="xadmin.open('添加用户','{{url('back/user/create')}}',600,400)"><i class="layui-icon"></i>添加</button>
     </div>
     <div class="layui-card-body layui-table-body layui-table-main">
-        <table class="layui-table {{--layui-form--}}">
+        <table class="layui-table layui-form">
             <thead>
             <tr>
                 <th>
@@ -65,14 +65,15 @@
     </div>
     <div class="layui-card-body ">
         <div class="page">
-            <div>
-                <a class="prev" href="">&lt;&lt;</a>
-                <a class="num" href="">1</a>
-                <span class="current">2</span>
-                <a class="num" href="">3</a>
-                <a class="num" href="">489</a>
-                <a class="next" href="">&gt;&gt;</a>
-            </div>
+            {{ $user->links() }}
+            {{--<div>--}}
+                {{--<a class="prev" href="">&lt;&lt;</a>--}}
+                {{--<a class="num" href="">1</a>--}}
+                {{--<span class="current">2</span>--}}
+                {{--<a class="num" href="">3</a>--}}
+                {{--<a class="num" href="">489</a>--}}
+                {{--<a class="next" href="">&gt;&gt;</a>--}}
+            {{--</div>--}}
         </div>
     </div>
     @endsection
