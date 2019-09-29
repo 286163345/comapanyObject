@@ -18,7 +18,6 @@
    * @return {[type]} [description]
    */
   Xadmin.prototype.end = function() {
-
     var cate_list = this.get_cate_data();
 
     for(var i in cate_list){

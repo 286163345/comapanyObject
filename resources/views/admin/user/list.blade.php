@@ -24,7 +24,7 @@
         <button class="layui-btn" onclick="xadmin.open('添加用户','{{url('back/user/create')}}',600,400)"><i class="layui-icon"></i>添加</button>
     </div>
     <div class="layui-card-body layui-table-body layui-table-main">
-        <table class="layui-table layui-form">
+        <table class="layui-table {{--layui-form--}}">
             <thead>
             <tr>
                 <th>
@@ -35,28 +35,31 @@
                 <th>邮箱</th>
                 <th>创建时间</th>
                 <th>更新时间</th>
+                <th>更新时间</th>
                 <th>操作</th></tr>
             </thead>
             <tbody>
-            <tr>
-                @foreach($user as $value)
+            @foreach($user as $value)
+                <tr>
                     <td>
-                        <input type="checkbox" name="id" value="1"   lay-skin="primary">
+                        <input type="checkbox" name="id" value="{{$value['id']}}"   lay-skin="primary">
                     </td>
                     <td>{{$value['id']}}</td>
                     <td>{{$value['name']}}</td>
                     <td>{{$value['email']}}</td>
                     <td>{{$value['created_at']}}</td>
+                    <td>{{$value['created_at']}}</td>
                     <td>{{$value['updated_at']}}</td>
                     <td class="td-manage">
-                        <a title="编辑"  onclick="xadmin.open('编辑','{{url('back/user'.$value['id'].'/edit')}}',600,400)" href="javascript:;">
+                        <a title="编辑"  onclick="xadmin.open('编辑','{{url('back/user/'.$value['id'].'/edit')}}',600,400)" href="javascript:;">
                             <i class="layui-icon">&#xe642;</i>
                         </a>
-                        <a title="删除" data-href="{{ url('back/user',$value['id']) }}" id="" href="javascript:;">
+                        <a title="删除" data-href="{{ url('back/user',$value['id']) }}" class="del" href="javascript:;">
                             <i class="layui-icon">&#xe640;</i>
                         </a>
                     </td>
-                    @endforeach
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

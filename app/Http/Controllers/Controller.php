@@ -24,4 +24,24 @@ class Controller extends BaseController
 //        $templateArray = array_merge($parameters,$globalArray);
         return view($view,$parameters);
     }
+
+    /**
+     * @param array $item
+     * @return array
+     */
+    public function deleteEmptyField($item=array())
+    {
+        $arr = [];
+        foreach($item as $k => $v){
+            if($k != '_token' && $k != '_method' && $k != 'repass'){
+                if(!empty($v)){
+                    $arr[$k] = $v;
+                }
+            }
+            if($k == 'password'){
+                $arr[$k] = bcrypt($v);
+            }
+        }
+        return $arr;
+    }
 }
