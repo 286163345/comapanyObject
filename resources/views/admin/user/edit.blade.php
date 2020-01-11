@@ -2,20 +2,20 @@
 
 <div class="layui-fluid">
     <div class="layui-row">
-        <form method="POST" action="{{url('back/user',['id'=>$user['id']])}}">
+        <form method="POST" action="{{url('back/user',['id'=>$user!= null?$user['id']:'0'])}}">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="_method" value="put">
             <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">
                     <span class="x-red">*</span>用户名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_username" name="name" required="" lay-verify="nikename" autocomplete="off" class="layui-input" value="{{$user['name']}}"></div>
+                    <input type="text" id="L_username" name="name" required="" lay-verify="nikename" autocomplete="off" class="layui-input" @if ($user != null) value="{{$user['name']}}" @endif></div>
             </div>
             <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">
                     <span class="x-red">*</span>邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="email" id="L_email" name="email" readonly="" lay-verify="email" autocomplete="off" class="layui-input" value="{{$user['email']}}"></div>
+                    <input type="email" id="L_email" name="email" @if ($user != null) readonly="" value="{{$user['email']}}" @endif lay-verify="email" autocomplete="off" class="layui-input" ></div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span>将会成为您唯一的登入名</div>
             </div>

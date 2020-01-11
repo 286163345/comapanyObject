@@ -34,23 +34,25 @@ class UserController extends Controller
     public function create()
     {
         $params = array(
+            'user' => null,
             'message' => session('message')?session('message'):''
         );
-        return view('admin.user.add',$params);
+        return view('admin.user.edit',$params);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
-    {
-        $data = $this->deleteEmptyField($request->all());
-        $user = User::create($data);
-        if($user->id){
-            return redirect('back/user/create')->with('message', '保存成功!');
-        }
-    }
+    //添加编辑更新共用update方法
+//    /**
+//     * @param Request $request
+//     * @return \Illuminate\Http\RedirectResponse
+//     */
+//    public function store(Request $request)
+//    {
+//        $data = $this->deleteEmptyField($request->all());
+//        $user = User::create($data);
+//        if($user->id){
+//            return redirect('back/user/create')->with('message', '保存成功!');
+//        }
+//    }
 
     /**
      * @param $id
@@ -73,8 +75,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //TODO 需要验证邮箱   缺少token
         $data = $this->deleteEmptyField($request->all());
-        $user = User::where(['id'=>$id])->update($data);
+        if(empty($id)){
+            $user = User::create($data);
+        }else{
+            $user = User::where(['id'=>$id])->update($data);
+        }
         if(!empty($user)){
             return redirect('back/user/'.$id.'/edit')->with('message', '修改成功!');
         }else{
