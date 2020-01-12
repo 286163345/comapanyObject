@@ -20,7 +20,7 @@
         </form>
     </div>
     <div class="layui-card-header">
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn layui-btn-danger" data-url="{{URL::current()}}" id="delAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="xadmin.open('添加用户','{{url('back/user/create')}}',600,400)"><i class="layui-icon"></i>添加</button>
     </div>
     <div class="layui-card-body layui-table-body layui-table-main">
@@ -42,7 +42,7 @@
             @foreach($user as $value)
                 <tr>
                     <td>
-                        <input type="checkbox" name="id" value="{{$value['id']}}"   lay-skin="primary">
+                        <input type="checkbox" name="id" class="item_id" value="{{$value['id']}}"   lay-skin="primary">
                     </td>
                     <td>{{$value['id']}}</td>
                     <td>{{$value['name']}}</td>

@@ -41,6 +41,38 @@ $(document).ready(function () {
         });
     }
 
+    //---------公共批量删除
+    $('#delAll').on('click', function(){
+        var url = $(this).data('url');
+        delAll(url);
+    })
+    function delAll(url){
+        var idstr = '';
+        $('.item_id').each(function(index, value){
+            if($(value).is(':checked')){
+                idstr += $(value).val() + ',';
+            }
+        })
+        url = url + "/" + idstr;
+         layer.confirm('确认要批量删除吗？',function() {
+             $.ajax({
+                 // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 type: "DELETE",
+                 url: url,
+                 dataType: 'json',
+                 success: function (msg) {
+                     layer.msg(msg.message,{icon: 6,anim:6,time:1000},function(){
+                         location.replace(location.href);
+                     });
+                 },
+                 error: function (msg) {
+                     layer.msg(msg.error,{icon: 5,anim:6,time:1000});
+                 }
+             });
+         });
+    }
+    //---------结束
+
     // 分类展开收起的分类的逻辑
     //
     $(function(){

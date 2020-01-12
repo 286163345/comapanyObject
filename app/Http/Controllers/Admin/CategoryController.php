@@ -20,38 +20,63 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $user = Category::paginate($this->limit);
+        $category = Category::paginate($this->limit);
+        $category =  $this->quick_sort($category);
+        dd($category);
         $params = array(
-            'category' => $user,
+            'category' => $category,
             'message' => session('message')?session('message'):''
         );
         return view('admin.category.list',$params);
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
+    public function quick_sort($data, $fid = 0)
     {
-        $params = array(
-            'message' => session('message')?session('message'):''
-        );
-        return view('admin.category.add',$params);
+        $result = array();
+        foreach($data as $key => $val){
+            if($fid == $val['fid']){
+                $result[] = $val;
+                foreach ($this->quick_sort($data, $val['id']) as $v) {
+                    $result[] = $v;
+                }
+            }
+        }
+        return $result;
     }
+
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        $data = $this->deleteEmptyField($request->all());
-        $data['status'] = 1;
-        $user = Category::create($data);
-        if($user->id){
-            return redirect('back/category')->with('message', '保存成功!');
+        $fid = $request->get('fid');
+        $params = array(
+            'category' => null,
+            'message' => session('message')?session('message'):''
+        );
+        if(!empty($fid)){
+            $params['fid'] = $fid;
+        }else{
+            $params['fid'] = 0;
         }
+        return view('admin.category.edit',$params);
     }
+
+//    /**
+//     * @param Request $request
+//     * @return \Illuminate\Http\RedirectResponse
+//     */
+//    public function store(Request $request)
+//    {
+//        $data = $this->deleteEmptyField($request->all());
+//        $data['status'] = 1;
+//        $user = Category::create($data);
+//        if($user->id){
+//            return redirect('back/category')->with('message', '保存成功!');
+//        }
+//    }
 
     /**
      * @param $id
@@ -61,6 +86,7 @@ class CategoryController extends Controller
     {
         $user = Category::find($id);
         $params = array(
+            'fid' => empty($id)?0:$user['fid'],
             'category' => $user,
             'message' => session('message')?session('message'):''
         );
@@ -75,8 +101,17 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->deleteEmptyField($request->all());
-        $user = Category::where(['id'=>$id])->update($data);
-        if(!empty($user)){
+        if(empty($id)){
+            if(empty($data['fid'])){
+                $data['fid'] = 0;
+            }
+            $data['status'] = 1;
+            $data['order_by'] = 1;
+            $category = Category::create($data);
+        }else{
+            $category = Category::where(['id'=>$id])->update($data);
+        }
+        if(!empty($category)){
             return redirect('back/category/'.$id.'/edit')->with('message', '修改成功!');
         }else{
             return redirect('back/category/'.$id.'/edit')->with('message', '修改失败!');
@@ -89,8 +124,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $user = Category::destroy($id);
-        if(!empty($user)){
+        $category = $this->idDelete($id,new Category());
+        if(!empty($category)){
             return response()->json(['message'=>'删除成功!']);
         }else{
             return response()->json(['error'=>'删除失败!']);

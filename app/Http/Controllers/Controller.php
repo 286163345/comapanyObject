@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Admin\Category;
+use App\Model\Admin\User;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -43,5 +45,20 @@ class Controller extends BaseController
             }
         }
         return $arr;
+    }
+
+    //用于批量删除 公共方法
+    public function idDelete($id,$model)
+    {
+        $idArr = explode(',', $id);
+        if(is_array($idArr) && count($idArr) > 1){
+            array_pop($idArr);
+            foreach($idArr as $v){
+                $deleteRes = $model::destroy($v);
+            }
+        }else{
+            $deleteRes = $model::destroy($id);
+        }
+        return $deleteRes;
     }
 }

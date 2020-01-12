@@ -95,7 +95,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::destroy($id);
+        $user = $this->idDelete($id,new User());
         if(!empty($user)){
             return response()->json(['message'=>'删除成功!']);
         }else{

@@ -31,7 +31,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label"></label>
-                <button type="submit" id="edit" class="layui-btn">修改</button></div>
+                <button type="submit" id="edit" class="layui-btn">提交</button></div>
         </form>
     </div>
 </div>
