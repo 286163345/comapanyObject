@@ -8,42 +8,27 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\Admin\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Category;
 
-class CategoryController extends Controller
+class BannerController extends Controller
 {
     protected $limit = 15;
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $category = Category::all();
-        $category =  $this->quick_sort($category);
-//        dd($category);
+        $banner = Banner::paginate($this->limit);
         $params = array(
-            'category' => $category,
+            'category' => $banner,
             'message' => session('message')?session('message'):''
         );
-        return view('admin.category.list',$params);
+        return view('admin.banner.list',$params);
     }
-
-    public function quick_sort($data, $fid = 0)
-    {
-        $result = array();
-        foreach($data as $key => $val){
-            if($fid == $val['fid']){
-                $result[] = $val;
-                foreach ($this->quick_sort($data, $val['id']) as $v) {
-                    $result[] = $v;
-                }
-            }
-        }
-        return $result;
-    }
-
 
     /**
      * @param Request $request
@@ -51,17 +36,11 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        $fid = $request->get('fid');
         $params = array(
-            'category' => null,
+            'banner' => null,
             'message' => session('message')?session('message'):''
         );
-        if(!empty($fid)){
-            $params['fid'] = $fid;
-        }else{
-            $params['fid'] = 0;
-        }
-        return view('admin.category.edit',$params);
+        return view('admin.banner.edit',$params);
     }
 
 //    /**
@@ -100,22 +79,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd(1111111111111);
         $data = $this->deleteEmptyField($request->all());
-        if(empty($id)){
-            if(empty($data['fid'])){
-                $data['fid'] = 0;
-            }
-            $data['status'] = 1;
-            $data['order_by'] = 1;
-            $category = Category::create($data);
-        }else{
-            $category = Category::where(['id'=>$id])->update($data);
-        }
-        if(!empty($category)){
-            return redirect('back/category/'.$id.'/edit')->with('message', '修改成功!');
-        }else{
-            return redirect('back/category/'.$id.'/edit')->with('message', '修改失败!');
-        }
+        $file = $request->file("file");
+        dd($file);
+        $fil = $file->getClientOriginalName();//图片路径
+        $data = $file->move("img",$fil);//移动至框架图片文件夹
+        $dat['image']=$data;
+
+//        $res = Banner::create($dat);
+//
+//        $data = $this->deleteEmptyField($request->all());
+//        if(empty($id)){
+//            if(empty($data['fid'])){
+//                $data['fid'] = 0;
+//            }
+//            $data['status'] = 1;
+//            $data['order_by'] = 1;
+//            $category = Category::create($data);
+//        }else{
+//            $category = Category::where(['id'=>$id])->update($data);
+//        }
+//        if(!empty($category)){
+//            return redirect('back/category/'.$id.'/edit')->with('message', '修改成功!');
+//        }else{
+//            return redirect('back/category/'.$id.'/edit')->with('message', '修改失败!');
+//        }
     }
 
     /**

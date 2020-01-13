@@ -97,6 +97,7 @@ $(document).ready(function () {
         })
     })
 
+    //分类
     var cateIds = [];
     function getCateId(cateId) {
         $("tbody tr[fid="+cateId+"]").each(function(index, el) {
@@ -105,4 +106,18 @@ $(document).ready(function () {
             getCateId(id);
         });
     }
+
+    //图片大图显示 属性class  simg
+    $("body").on("click",".simg",function(e){
+        layer.photos({
+            photos: { "data": [{"src": e.target.src}] }
+        });
+    });
+
+    //弹框关闭
+    $(document).on('click', '.layui-layer-close', function() {
+        // xadmin.close();
+        // xadmin.father_reload();
+        window.location.reload();
+    })
 })

@@ -23,13 +23,6 @@
             layer.msg(message,{icon: 6,anim:6,time:2000});
         }
     });
-    //弹框关闭
-    $(document).on('click', '.layui-layer-close', function() {
-        // xadmin.close();
-        // xadmin.father_reload();
-        window.location.reload();
-    })
-
 </script>
 
 </html>

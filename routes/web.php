@@ -17,6 +17,7 @@ Route::prefix('back')->group(function(){
     Route::resource('/index','Admin\IndexController');
     Route::resource('/user','Admin\UserController');
     Route::resource('/category','Admin\CategoryController');
+    Route::resource('/banner','Admin\BannerController');
 });
 
 
