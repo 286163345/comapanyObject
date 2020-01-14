@@ -2,7 +2,7 @@
 
 <div class="layui-fluid">
     <div class="layui-row">
-        <form class="layui-form" method="POST"  action="{{url('back/banner',['id'=>$banner!= null?$banner['id']:'0'])}}">
+        <form class="layui-form" method="POST"  action="{{url('back/banner',['id'=>$banner!= null?$banner['id']:'0'])}}" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="_method" value="put">
             <div class="layui-form-item">
@@ -31,7 +31,7 @@
                     <span class="x-red">*</span>链接
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="link" name="link" required="" lay-verify="required"
+                    <input type="text" id="link" name="href" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <span class="x-red">*</span>描述
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="desc" name="desc" required="" lay-verify="required"
+                    <input type="text" id="desc" name="notes" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">

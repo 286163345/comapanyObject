@@ -24,7 +24,7 @@ class BannerController extends Controller
     {
         $banner = Banner::paginate($this->limit);
         $params = array(
-            'category' => $banner,
+            'banner' => $banner,
             'message' => session('message')?session('message'):''
         );
         return view('admin.banner.list',$params);
@@ -79,32 +79,22 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd(1111111111111);
         $data = $this->deleteEmptyField($request->all());
         $file = $request->file("file");
-        dd($file);
-        $fil = $file->getClientOriginalName();//图片路径
-        $data = $file->move("img",$fil);//移动至框架图片文件夹
-        $dat['image']=$data;
-
-//        $res = Banner::create($dat);
-//
-//        $data = $this->deleteEmptyField($request->all());
-//        if(empty($id)){
-//            if(empty($data['fid'])){
-//                $data['fid'] = 0;
-//            }
-//            $data['status'] = 1;
-//            $data['order_by'] = 1;
-//            $category = Category::create($data);
-//        }else{
-//            $category = Category::where(['id'=>$id])->update($data);
-//        }
-//        if(!empty($category)){
-//            return redirect('back/category/'.$id.'/edit')->with('message', '修改成功!');
-//        }else{
-//            return redirect('back/category/'.$id.'/edit')->with('message', '修改失败!');
-//        }
+        if(!empty($file)){
+            $data['simg'] = $this->imageUpload('banner',$file);
+        }
+        if(empty($id)){
+            $data['status'] = 1;
+            $category = Banner::create($data);
+        }else{
+            $category = Banner::where(['id'=>$id])->update($data);
+        }
+        if(!empty($category)){
+            return redirect('back/banner/'.$id.'/edit')->with('message', '修改成功!');
+        }else{
+            return redirect('back/banner/'.$id.'/edit')->with('message', '修改失败!');
+        }
     }
 
     /**

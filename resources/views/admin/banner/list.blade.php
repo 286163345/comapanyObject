@@ -12,58 +12,41 @@
                 <i class="layui-icon">&#xe608;</i>添加
             </button>
         </xblock>
-        <table class="layui-table">
+        <table class="layui-table layui-form">
             <thead>
             <tr>
-                <th>
-                    <input type="checkbox" name="" value="">
+                <th width="20">
+                    <input type="checkbox" name="" lay-skin="primary">
                 </th>
-                <th>
-                    ID
-                </th>
-                <th>
-                    缩略图
-                </th>
-                <th>
-                    链接
-                </th>
-                <th>
-                    描述
-                </th>
-                <th>
-                    显示状态
-                </th>
-                <th>
-                    操作
-                </th>
+                <th>ID</th>
+                <th>缩略图</th>
+                <th>链接</th>
+                <th>描述</th>
+                <th>显示状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody id="x-img">
+            @foreach($banner as $value)
             <tr>
+                <th width="20">
+                    <input type="checkbox" name="" lay-skin="primary" value="{{$value['id']}}">
+                </th>
+                <td>{{$value['id']}}</td>
+                <td><img src="{{asset($value['simg'])}}" class="simg" width="200" alt="">点击图片试试</td>
+{{--                <td><img src="{{\Illuminate\Support\Facades\Storage::url($value['simg'])}}" class="simg" width="200" alt="">点击图片试试</td>--}}
+                <td>{{$value['href']}}</td>
+                <td>{{$value['notes']}}</td>
+{{--                <td class="td-status">--}}
+{{--                <td class="td-status"> <span class="layui-btn layui-btn-normal layui-btn-mini">已显示</span></td>--}}
+{{--                </td>--}}
                 <td>
-                    <input type="checkbox" value="1" name="">
-                </td>
-                <td>
-                    1
-                </td>
-                <td>
-                    <img src="{{asset('admin/images/banner.png')}}" class="simg" width="200" alt="">点击图片试试
-                </td>
-                <td >
-                    http://www.xuebingsi.com
-                </td>
-                <td >
-                    十月活动轮播
-                </td>
-                <td class="td-status">
-                            <span class="layui-btn layui-btn-normal layui-btn-mini">
-                                已显示
-                            </span>
+                    <input type="checkbox" name="switch"  lay-text="显示|禁用"  checked="" lay-skin="switch" lay-filter="switchButton">
                 </td>
                 <td class="td-manage">
-                    <a style="text-decoration:none" onclick="banner_stop(this,'10001')" href="javascript:;" title="不显示">
-                        <i class="layui-icon">&#xe601;</i>
-                    </a>
+{{--                    <a style="text-decoration:none" onclick="banner_stop(this,'10001')" href="javascript:;" title="不显示">--}}
+{{--                        <i class="layui-icon">&#xe601;</i>--}}
+{{--                    </a>--}}
                     <a title="编辑" href="javascript:;" onclick="banner_edit('编辑','banner-edit.html','4','','510')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
@@ -74,6 +57,7 @@
                     </a>
                 </td>
             </tr>
+                @endforeach
             </tbody>
         </table>
 

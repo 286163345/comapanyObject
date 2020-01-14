@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 
 class Controller extends BaseController
 {
@@ -35,7 +36,7 @@ class Controller extends BaseController
     {
         $arr = [];
         foreach($item as $k => $v){
-            if($k != '_token' && $k != '_method' && $k != 'repass'){
+            if($k != '_token' && $k != '_method' && $k != 'repass' && $k != 'file'){
                 if(!empty($v) || $v == 0){
                     $arr[$k] = $v;
                 }
@@ -60,5 +61,13 @@ class Controller extends BaseController
             $deleteRes = $model::destroy($id);
         }
         return $deleteRes;
+    }
+
+    public function imageUpload($path,$file){
+        $fileName = $path.'/'.date('Y-m-d');
+        $name = $fileName.'/'.$path.time().'.'.$file->getClientOriginalExtension();
+        if (Storage::disk('public')->put($name, file_get_contents($file)) ){
+            return Storage::url($name);
+        }
     }
 }
