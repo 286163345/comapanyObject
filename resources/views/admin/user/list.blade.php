@@ -28,7 +28,7 @@
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
+                    <input type="checkbox" lay-filter="allChoose" name="" lay-skin="primary">
                 </th>
                 <th>ID</th>
                 <th>用户名</th>
@@ -42,7 +42,7 @@
             @foreach($user as $value)
                 <tr>
                     <td>
-                        <input type="checkbox" name="id" class="item_id" value="{{$value['id']}}"   lay-skin="primary">
+                        <input type="checkbox" name="item_id" class="item_id" value="{{$value['id']}}"   lay-skin="primary">
                     </td>
                     <td>{{$value['id']}}</td>
                     <td>{{$value['name']}}</td>

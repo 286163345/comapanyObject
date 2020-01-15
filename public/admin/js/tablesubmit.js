@@ -14,6 +14,13 @@ $(document).ready(function () {
             })
             return false;
         });
+        //layui全选   lay-filter 属性  属性名allChoose
+        form.on('checkbox(allChoose)', function (data) {
+            $("input[name='item_id']").each(function () {
+                this.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
     });
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     /*公共删除*/
@@ -120,4 +127,18 @@ $(document).ready(function () {
         // xadmin.father_reload();
         window.location.reload();
     })
+
+    //选择框批量选中
+    $("#scheck").click(function() {
+        console.log(11111111111)
+        if($("#scheck").is(':checked')){
+            $('.item_id').each(function(index, value){
+                $(value).attr("checked",false);
+            })
+        }else {
+            $('.item_id').each(function (index, value) {
+                $(value).attr("checked", true);
+            })
+        }
+    });
 })

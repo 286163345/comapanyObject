@@ -63,13 +63,12 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $user = Category::find($id);
+        $banner = Banner::find($id);
         $params = array(
-            'fid' => empty($id)?0:$user['fid'],
-            'category' => $user,
+            'banner' => $banner,
             'message' => session('message')?session('message'):''
         );
-        return view('admin.category.edit',$params);
+        return view('admin.banner.edit',$params);
     }
 
     /**
@@ -103,8 +102,8 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        $category = $this->idDelete($id,new Category());
-        if(!empty($category)){
+        $user = $this->idDelete($id,new Banner());
+        if(!empty($user)){
             return response()->json(['message'=>'删除成功!']);
         }else{
             return response()->json(['error'=>'删除失败!']);

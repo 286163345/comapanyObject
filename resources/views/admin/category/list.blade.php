@@ -27,7 +27,7 @@
             <thead>
             <tr>
                 <th width="20">
-                    <input type="checkbox" name="" lay-skin="primary">
+                    <input type="checkbox" lay-filter="allChoose" lay-skin="primary">
                 </th>
                 <th width="70">ID</th>
                 <th width="70">fid</th>
@@ -40,7 +40,7 @@
             @foreach($category as $k => $v)
                 <tr cate-id='{{$v['id']}}' fid='{{$v['fid']}}' >
                     <td>
-                        <input type="checkbox" class="item_id" value="{{$v['id']}}" lay-skin="primary">
+                        <input type="checkbox" class="item_id" name="item_id" value="{{$v['id']}}" lay-skin="primary">
                     </td>
                     <td>{{$v['id']}}</td>
                     <td>{{$v['fid']}}</td>

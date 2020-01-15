@@ -8,7 +8,7 @@
             <button class="layui-btn layui-btn-danger" data-url="{{URL::current()}}" id="delAll">
                 <i class="layui-icon">&#xe640;</i>批量删除
             </button>
-            <button class="layui-btn" onclick="xadmin.open('添加用户','{{url('back/banner/create')}}',600,400)">
+            <button class="layui-btn" onclick="xadmin.open('添加','{{url('back/banner/create')}}',600,400)">
                 <i class="layui-icon">&#xe608;</i>添加
             </button>
         </xblock>
@@ -16,7 +16,8 @@
             <thead>
             <tr>
                 <th width="20">
-                    <input type="checkbox" name="" lay-skin="primary">
+                    <input type="checkbox"  lay-filter="allChoose" lay-skin="primary">
+{{--                    <button class="layui-btn" id="scheck">全选</button>--}}
                 </th>
                 <th>ID</th>
                 <th>缩略图</th>
@@ -30,7 +31,7 @@
             @foreach($banner as $value)
             <tr>
                 <th width="20">
-                    <input type="checkbox" name="" lay-skin="primary" value="{{$value['id']}}">
+                    <input type="checkbox" class="item_id" name="item_id" lay-skin="primary" value="{{$value['id']}}">
                 </th>
                 <td>{{$value['id']}}</td>
                 <td><img src="{{asset($value['simg'])}}" class="simg" width="200" alt="">点击图片试试</td>
@@ -47,14 +48,8 @@
 {{--                    <a style="text-decoration:none" onclick="banner_stop(this,'10001')" href="javascript:;" title="不显示">--}}
 {{--                        <i class="layui-icon">&#xe601;</i>--}}
 {{--                    </a>--}}
-                    <a title="编辑" href="javascript:;" onclick="banner_edit('编辑','banner-edit.html','4','','510')"
-                       class="ml-5" style="text-decoration:none">
-                        <i class="layui-icon">&#xe642;</i>
-                    </a>
-                    <a title="删除" href="javascript:;" onclick="banner_del(this,'1')"
-                       style="text-decoration:none">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
+                    <button class="layui-btn layui-btn layui-btn-xs"  onclick='xadmin.open("编辑","{{url('back/banner/'.$value['id'].'/edit')}}",600,400)' ><i class="layui-icon">&#xe642;</i>编辑</button>
+                    <button class="layui-btn-danger layui-btn layui-btn-xs del"  data-href="{{ url('back/banner',$value['id']) }}" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
                 </td>
             </tr>
                 @endforeach

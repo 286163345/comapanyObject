@@ -24,5 +24,6 @@
         }
     });
 </script>
-
+@section('javaScript')
+    @show
 </html>
