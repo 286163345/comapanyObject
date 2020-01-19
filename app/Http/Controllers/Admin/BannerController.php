@@ -9,20 +9,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Admin\Banner;
+use App\Model\Admin\ImageAll;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Category;
+use Illuminate\Support\Facades\DB;
 
 class BannerController extends Controller
 {
     protected $limit = 15;
+    private $bannerModel;
+    public function __construct()
+    {
+        $this->bannerModel = new Banner();
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $banner = Banner::paginate($this->limit);
+        $banner = $this->bannerModel->newQuery()->select("*")
+            ->leftJoin('image_all as i','i.banner_id','=','banner.id')
+            ->paginate($this->limit);
+//        $banner = $this->bannerModel->imageAll()
+//            ->toSql();
+//        dd($banner);
         $params = array(
             'banner' => $banner,
             'message' => session('message')?session('message'):''
@@ -63,7 +75,7 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $banner = Banner::find($id);
+        $banner = Banner::find($id)->imageAll();
         $params = array(
             'banner' => $banner,
             'message' => session('message')?session('message'):''
@@ -85,11 +97,15 @@ class BannerController extends Controller
         }
         if(empty($id)){
             $data['status'] = 1;
-            $category = Banner::create($data);
+                $banner = Banner::create($data);
+            if($banner && !empty($file)){
+                $data['bind_id'] = $banner['id'];
+                ImageAll::imageAdd($data,'banner');
+            }
         }else{
-            $category = Banner::where(['id'=>$id])->update($data);
+            $banner = Banner::where(['id'=>$id])->update($data);
         }
-        if(!empty($category)){
+        if(!empty($banner)){
             return redirect('back/banner/'.$id.'/edit')->with('message', '修改成功!');
         }else{
             return redirect('back/banner/'.$id.'/edit')->with('message', '修改失败!');
