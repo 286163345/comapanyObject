@@ -18,6 +18,7 @@ Route::prefix('back')->group(function(){
     Route::resource('/user','Admin\UserController');
     Route::resource('/category','Admin\CategoryController');
     Route::resource('/banner','Admin\BannerController');
+    Route::resource('/photoWall','Admin\PhotoWallController');
 });
 
 
