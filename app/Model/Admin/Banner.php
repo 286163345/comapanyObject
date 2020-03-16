@@ -8,7 +8,7 @@ class Banner extends Model
 {
     protected $table = 'banner';
 
-    protected $guarded = [];
+    protected $guarded = ['images'];
 
     public function imageAll () {
         return $this->hasOne('App\Model\Admin\ImageAll','banner_id');

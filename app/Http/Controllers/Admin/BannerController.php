@@ -75,7 +75,10 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $banner = Banner::find($id)->imageAll();
+        $bannerImage = Banner::find($id)->imageAll;
+        $bannerRes = Banner::find($id);
+        $banner = &$bannerRes;
+        $banner['images'] = $bannerImage->images;
         $params = array(
             'banner' => $banner,
             'message' => session('message')?session('message'):''
@@ -93,22 +96,35 @@ class BannerController extends Controller
         $data = $this->deleteEmptyField($request->all());
         $file = $request->file("file");
         if(!empty($file)){
-            $data['simg'] = $this->imageUpload('banner',$file);
+            $data['images'] = $this->imageUpload('banner',$file);
         }
         if(empty($id)){
             $data['status'] = 1;
-                $banner = Banner::create($data);
+            $banner = Banner::create($data);
             if($banner && !empty($file)){
-                $data['bind_id'] = $banner['id'];
-                ImageAll::imageAdd($data,'banner');
+                $data['banner_id'] = $banner['id'];
+                ImageAll::imageUpdate($data,'banner');
+            }
+            if($banner){
+                return redirect('back/banner/create')->with('message', '添加成功!');
+            }else{
+                return redirect('back/banner/create')->with('message', '添加失败!');
             }
         }else{
-            $banner = Banner::where(['id'=>$id])->update($data);
-        }
-        if(!empty($banner)){
-            return redirect('back/banner/'.$id.'/edit')->with('message', '修改成功!');
-        }else{
-            return redirect('back/banner/'.$id.'/edit')->with('message', '修改失败!');
+            $content = array();
+            $content['href'] = $data['href'];
+            $content['notes'] = $data['notes'];
+            $banner = Banner::where('id',$id)->update($content);
+            if(!empty($file)){
+                $data['banner_id'] = $id;
+                ImageAll::imageUpdate($data,'banner',true);
+            }
+            if($banner){
+                return redirect('back/banner/'.$id.'/edit')->with('message', '修改成功!');
+            }else{
+                return redirect('back/banner/'.$id.'/edit')->with('message', '修改失败!');
+            }
+
         }
     }
 

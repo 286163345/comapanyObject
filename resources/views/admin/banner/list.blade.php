@@ -31,10 +31,10 @@
             @foreach($banner as $value)
             <tr>
                 <th width="20">
-                    <input type="checkbox" class="item_id" name="item_id" lay-skin="primary" value="{{$value['id']}}">
+                    <input type="checkbox" class="item_id" name="item_id" lay-skin="primary" value="{{$value['banner_id']}}">
                 </th>
-                <td>{{$value['id']}}</td>
-                <td><img src="{{asset($value['simg'])}}" class="simg" width="200" alt="">点击图片试试</td>
+                <td>{{$value['banner_id']}}</td>
+                <td><img src="{{asset($value['images'])}}" class="simg" width="200" alt="">点击图片试试</td>
 {{--                <td><img src="{{\Illuminate\Support\Facades\Storage::url($value['simg'])}}" class="simg" width="200" alt="">点击图片试试</td>--}}
                 <td>{{$value['href']}}</td>
                 <td>{{$value['notes']}}</td>
@@ -48,8 +48,8 @@
 {{--                    <a style="text-decoration:none" onclick="banner_stop(this,'10001')" href="javascript:;" title="不显示">--}}
 {{--                        <i class="layui-icon">&#xe601;</i>--}}
 {{--                    </a>--}}
-                    <button class="layui-btn layui-btn layui-btn-xs"  onclick='xadmin.open("编辑","{{url('back/banner/'.$value['id'].'/edit')}}",600,400)' ><i class="layui-icon">&#xe642;</i>编辑</button>
-                    <button class="layui-btn-danger layui-btn layui-btn-xs del"  data-href="{{ url('back/banner',$value['id']) }}" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
+                    <button class="layui-btn layui-btn layui-btn-xs"  onclick='xadmin.open("编辑","{{url('back/banner/'.$value['banner_id'].'/edit')}}",600,400)' ><i class="layui-icon">&#xe642;</i>编辑</button>
+                    <button class="layui-btn-danger layui-btn layui-btn-xs del"  data-href="{{ url('back/banner',$value['banner_id']) }}" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>
                 </td>
             </tr>
                 @endforeach

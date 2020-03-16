@@ -18,7 +18,7 @@
             <div class="layui-form-item">
                 <label  class="layui-form-label">缩略图
                 </label>
-                <img id="LAY_demo_upload" width="200" @if (!empty($banner['simg'])) src="{{asset($banner['simg'])}}" @else src="{{asset('admin/images/banner.png')}}" @endif>
+                <img id="LAY_demo_upload" width="200" @if (!empty($banner['images'])) src="{{asset($banner['images'])}}" @else src="{{asset('admin/images/banner.png')}}" @endif>
             </div>
             <div class="layui-form-item">
                 <label  class="layui-form-label">

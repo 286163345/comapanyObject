@@ -3,6 +3,7 @@
 namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ImageAll extends Model
 {
@@ -16,21 +17,30 @@ class ImageAll extends Model
     }
 
     /**
+     * 更新图片到imgAll模型
      * @param $data
      * @param $type
+     * @param $imageId
      * @return |null
-     * 更新图片到imgAll模型
      */
-    public static function imageAdd($data, $type)
+    public static function imageUpdate($data, $type, $update = false)
     {
         $content = array();
         $res = null;
-        if(!empty($data['simg'])){
-            $imgkey = strtolower($type).'_id';
-            $content['images'] = $data['simg'];
-            $content['type'] = $type;
-            $content[$imgkey] = $data['bind_id'];
+        if(!empty($data['images']) && !$update){
+            $content['type'] = strtolower($type);
+            $content['images'] = $data['images'];
+            $content['banner_id'] = $data['banner_id'];
             $res = ImageAll::create($content);
+        }else{
+            $banner = ImageAll::where('banner_id',$data['banner_id'])->get()[0];
+            $fileName = str_replace('/storage/','',$banner->images);
+            Storage::disk('public')->delete($fileName);
+            $banner->images = $data['images'];
+            $banner->save();
+//            $content['type'] = strtolower($type);
+//            $content['images'] = $data['images'];
+//            $res = ImageAll::where(['banner_id'=>$data['banner_id']])->update($content);
         }
         return $res;
     }
